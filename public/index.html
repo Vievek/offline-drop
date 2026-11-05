@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Offline QR Drop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-row">
+        <span class="icon">⚡</span>
+        <h1>Offline QR Drop</h1>
+      </div>
+      <div class="status-pill" id="statusPill">
+        <span class="status-dot"></span>
+        <span id="statusText">Connecting...</span>
+      </div>
+    </header>
+
+    <!-- Session Stats Bar: Total Data Transferred & Active Status -->
+    <div class="session-stats-bar">
+      <div class="stat-item">
+        <span class="stat-label">📡 Mode</span>
+        <strong id="networkBadge">Direct LAN (0 B Cellular)</strong>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">📊 Data Transferred</span>
+        <strong id="sessionTotalData">0 MB</strong>
+      </div>
+    </div>
+
+    <!-- PIN Authentication Modal if token missing -->
+    <div id="authSection" class="card auth-card hidden">
+      <h3>🔑 Device Authentication</h3>
+      <p class="subtitle">Enter the 4-digit PIN displayed on your laptop terminal</p>
+      <div class="pin-input-group">
+        <input type="text" id="pinInput" maxlength="4" placeholder="0000" inputmode="numeric" />
+        <button id="authBtn" class="btn btn-primary">Connect</button>
+      </div>
+      <p id="authError" class="error-msg"></p>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainApp" class="app-layout">
+      <!-- Section 1: Upload to Laptop -->
+      <section class="card upload-card">
+        <div class="section-title">
+          <span class="emoji">📤</span>
+          <h2>Send to Laptop</h2>
+        </div>
+        <p class="section-desc">Select multiple files, photos, or videos to transfer directly to your laptop.</p>
+        
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" multiple class="file-input-hidden" />
+          <div class="drop-prompt">
+            <span class="upload-icon">📁</span>
+            <strong>Tap to Select Multiple Files</strong>
+            <span class="hint">or take photo/video</span>
+          </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div id="uploadProgressContainer" class="progress-container hidden">
+          <div class="progress-info">
+            <span id="uploadFileName">Uploading file...</span>
+            <span id="uploadSpeed">0 MB/s</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="uploadProgressBar" class="progress-bar-fill" style="width: 0%"></div>
+          </div>
+          <div class="progress-meta">
+            <span id="uploadStats">0 MB / 0 MB</span>
+            <span id="uploadPercent">0%</span>
+          </div>
+        </div>
+
+        <div id="uploadResult" class="upload-result hidden"></div>
+      </section>
+
+      <!-- Section 2: Download from Laptop -->
+      <section class="card download-card">
+        <div class="section-header-row">
+          <div class="section-title">
+            <span class="emoji">📥</span>
+            <h2>Files from Laptop</h2>
+          </div>
+          <button id="refreshManifestBtn" class="btn-text">🔄 Refresh List</button>
+        </div>
+        <p class="section-desc">Tap <strong>[f]</strong> on your laptop terminal anytime to open the file picker and share more files.</p>
+        
+        <div id="sharedFilesList" class="file-list">
+          <div class="empty-state">
+            <span>📭</span>
+            <p>No files currently shared by laptop.</p>
+            <small>Press <strong>[f]</strong> on your laptop terminal to select files.</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Live Transfer Activity & History Log -->
+      <section class="card log-card">
+        <div class="section-header-row">
+          <div class="section-title">
+            <span class="emoji">⏱</span>
+            <h2>Transfer Logs & Performance</h2>
+          </div>
+          <button id="clearLogsBtn" class="btn-text">Clear</button>
+        </div>
+        <div class="zero-data-note">
+          <span>ℹ <strong>Data Usage:</strong> Local peer-to-peer Wi-Fi / Hotspot only. <strong>0 bytes of internet/cellular data</strong> used.</span>
+        </div>
+        <div id="transferLogsList" class="transfer-logs">
+          <div class="log-empty">No transfers recorded in this session yet.</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>🔒 Local Direct Transfer &bull; Zero Internet Required</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

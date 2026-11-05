@@ -1,0 +1,37 @@
+{
+  "name": "offline-drop",
+  "version": "1.0.0",
+  "description": "Offline QR Drop - Instant local file sharing between PC and Phone over Wi-Fi & Hotspot",
+  "main": "dist/index.js",
+  "bin": {
+    "drop": "./bin/drop.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "archiver": "^8.0.0",
+    "busboy": "^1.6.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mime-types": "^3.0.2",
+    "qrcode": "^1.5.4",
+    "qrcode-terminal": "^0.12.0",
+    "ws": "^8.22.1"
+  },
+  "devDependencies": {
+    "@types/archiver": "^8.0.0",
+    "@types/busboy": "^1.5.5",
+    "@types/express": "^5.0.6",
+    "@types/mime-types": "^3.0.1",
+    "@types/node": "^26.6.6",
+    "@types/qrcode": "^1.5.6",
+    "@types/qrcode-terminal": "^0.12.2",
+    "@types/ws": "^8.18.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
