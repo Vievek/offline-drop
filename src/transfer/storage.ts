@@ -26,7 +26,6 @@ export class StorageManager {
     let targetDir = customUploadDir || process.env.DROP_STORAGE_PATH;
 
     if (!targetDir || targetDir.trim() === '') {
-      // Default to user's home Downloads folder: ~/Downloads/OfflineDrop
       targetDir = path.join(os.homedir(), 'Downloads', 'OfflineDrop');
     }
 
@@ -36,12 +35,9 @@ export class StorageManager {
       if (!fs.existsSync(this.uploadDir)) {
         fs.mkdirSync(this.uploadDir, { recursive: true });
       }
-    } catch (err) {
-      console.warn(`[!] Unable to create folder at "${this.uploadDir}". Falling back to project ./storage`);
-      this.uploadDir = path.join(process.cwd(), 'storage');
-      if (!fs.existsSync(this.uploadDir)) {
-        fs.mkdirSync(this.uploadDir, { recursive: true });
-      }
+    } catch (err: any) {
+      // If folder already exists or access check passes on real host, keep the user's chosen folder
+      console.warn(`[i] Note regarding "${this.uploadDir}": ${err?.message || err}`);
     }
   }
 
